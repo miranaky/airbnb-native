@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { StatusBar, Text, View } from "react-native";
+import { KeyboardAvoidingView, StatusBar, Text, View } from "react-native";
 import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
+import DismissKeyboard from "../../components/DismissKeyboard";
 
 const Container = styled.View`
   align-items: center;
@@ -22,35 +23,39 @@ export default () => {
   const [password, setPassword] = useState("");
   const handleSubmit = () => alert(`${username},${password}`);
   return (
-    <Container>
-      <StatusBar barStyle="dark-content" />
-      <InputContainer>
-        <Input
-          value={firstName}
-          placeholder="First Name"
-          autoCapitalize="none"
-          stateFn={setFirstName}
-        />
-        <Input
-          value={lastName}
-          placeholder="Last Name"
-          autoCapitalize="none"
-          stateFn={setLastName}
-        />
-        <Input
-          value={username}
-          placeholder="Username"
-          autoCapitalize="none"
-          stateFn={setUsername}
-        />
-        <Input
-          value={password}
-          placeholder="Password"
-          isPassword={true}
-          stateFn={setPassword}
-        />
-      </InputContainer>
-      <Btn onPress={handleSubmit} accent text="Sign Up" />
-    </Container>
+    <DismissKeyboard>
+      <Container>
+        <StatusBar barStyle="dark-content" />
+        <KeyboardAvoidingView behavior="position">
+          <InputContainer>
+            <Input
+              value={firstName}
+              placeholder="First Name"
+              autoCapitalize="none"
+              stateFn={setFirstName}
+            />
+            <Input
+              value={lastName}
+              placeholder="Last Name"
+              autoCapitalize="none"
+              stateFn={setLastName}
+            />
+            <Input
+              value={username}
+              placeholder="Username"
+              autoCapitalize="none"
+              stateFn={setUsername}
+            />
+            <Input
+              value={password}
+              placeholder="Password"
+              isPassword={true}
+              stateFn={setPassword}
+            />
+          </InputContainer>
+          <Btn onPress={handleSubmit} accent text="Sign Up" />
+        </KeyboardAvoidingView>
+      </Container>
+    </DismissKeyboard>
   );
 };
