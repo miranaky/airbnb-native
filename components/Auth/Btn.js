@@ -5,18 +5,21 @@ import PropTypes from "prop-types";
 import colors from "../../colors";
 
 const { width } = Dimensions.get("screen");
+
 const Button = styled.View`
+  margin-top:30px;
   border: 1px solid ${(props) => (props.accent ? colors.red : colors.black)}
-  border-radius:10px;
-  width: ${width / 2}px;
+  border-radius:15px;
+  width: ${width / 1.5}px;
   align-items: center;
   padding: 15px 0px;
-  margin-top:10px;
   background-color: ${(props) => (props.accent ? colors.red : "transparent")};
 `;
 
 const Text = styled.Text`
   color: ${(props) => (props.accent ? "white" : colors.black)};
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 const Btn = ({ onPress, text, accent = false }) => (
