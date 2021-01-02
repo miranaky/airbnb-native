@@ -7,6 +7,7 @@ import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
 import DismissKeyboard from "../../components/DismissKeyboard";
 import { userLogin } from "../../redux/usersSlice";
+import utils from "../../utils";
 
 const Container = styled.View`
   align-items: center;
@@ -27,7 +28,7 @@ export default ({ route: { params } }) => {
       alert("All fields are required!");
       return false;
     }
-    if (!isEmail(email)) {
+    if (!utils.isEmail(email)) {
       alert("Please add a valid email.");
       return false;
     }

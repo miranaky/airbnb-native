@@ -1,9 +1,7 @@
 import React from "react";
-import { Platform } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
-
-const isIos = Platform.OS === "ios";
+import utils from "../../utils";
 
 const Container = styled.View`
   padding-left: 20px;
@@ -11,6 +9,9 @@ const Container = styled.View`
 
 export default () => (
   <Container>
-    <Ionicons name={isIos ? "ios-arrow-back" : "md-arrow-back"} size={28} />
+    <Ionicons
+      name={utils.isIos ? "ios-arrow-back" : "md-arrow-back"}
+      size={28}
+    />
   </Container>
 );
