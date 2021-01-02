@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { KeyboardAvoidingView, StatusBar, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
 import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
 import DismissKeyboard from "../../components/DismissKeyboard";
+import { userLogin } from "../../redux/usersSlice";
 
 const Container = styled.View`
   align-items: center;
@@ -17,10 +19,31 @@ const InputContainer = styled.View`
 `;
 
 export default ({ route: { params } }) => {
-  console.log(params);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState(params?.email);
   const [password, setPassword] = useState(params?.password);
-  const handleSubmit = () => alert(`${email},${password}`);
+  const isFormValid = () => {
+    if (email === "" || password === "") {
+      alert("All fields are required!");
+      return false;
+    }
+    if (!isEmail(email)) {
+      alert("Please add a valid email.");
+      return false;
+    }
+    return true;
+  };
+  const handleSubmit = () => {
+    if (!isFormValid) {
+      return;
+    }
+    dispatch(
+      userLogin({
+        username: email,
+        password,
+      })
+    );
+  };
   return (
     <DismissKeyboard>
       <Container>
@@ -30,6 +53,7 @@ export default ({ route: { params } }) => {
             <Input
               value={email}
               placeholder="Email"
+              keyboardType="email-address"
               autoCapitalize="none"
               stateFn={setEmail}
             />

@@ -6,7 +6,7 @@ import Btn from "../../components/Auth/Btn";
 import Input from "../../components/Auth/Input";
 import DismissKeyboard from "../../components/DismissKeyboard";
 import { isEmail } from "../../utils";
-import { createAccount } from "../../api";
+import api from "../../api";
 
 const Container = styled.View`
   align-items: center;
@@ -46,7 +46,8 @@ export default ({ navigation }) => {
     }
     setLoading(true);
     try {
-      const { status } = await createAccount({
+      //create account
+      const { status } = await api.createAccount({
         first_name: firstName,
         last_name: lastName,
         email,
@@ -54,10 +55,12 @@ export default ({ navigation }) => {
         password,
       });
       if (status) {
+        //success
         alert("Account created. Sign in, please.");
         navigation.navigate("SignIn", { email, password });
       }
     } catch (e) {
+      //failure
       alert("This email was already taken.");
       console.warn(e);
     } finally {
