@@ -25,6 +25,7 @@ export default () => (
     }}
     screenOptions={({ route }) => ({
       tabBarIcon: ({ focused }) => {
+        ///setting iconName depend on platform IOS and Android
         const isIos = utils.isIos();
         let iconName = `${isIos ? "ios-" : "md-"}`;
         if (route.name === "Explore") {
