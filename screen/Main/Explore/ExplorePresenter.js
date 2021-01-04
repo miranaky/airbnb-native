@@ -1,6 +1,6 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { ActivityIndicator, Text } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import RoomCard from "../../../components/Main/Explore/RoomCard";
 
@@ -27,7 +27,7 @@ const FakeText = styled.Text`
   font-weight: 300;
 `;
 
-export default ({ rooms }) => {
+export default ({ rooms, increasePage }) => {
   return (
     <Container>
       {rooms.length === 0 ? (
@@ -53,6 +53,9 @@ export default ({ rooms }) => {
                 isSuperhost={room.user.superhost}
               />
             ))}
+            <TouchableOpacity onPress={increasePage}>
+              <Text>Load More</Text>
+            </TouchableOpacity>
           </ScrollView>
         </>
       )}
