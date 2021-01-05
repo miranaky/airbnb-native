@@ -73,7 +73,7 @@ const RoomCard = ({ id, name, photos, isFav, isSuperhost, price }) => {
       <TOpacity onPress={() => dispatch(toggleFav(id))}>
         <Ionicons
           size={40}
-          color={"white"}
+          color={isFav ? colors.red : "white"}
           name={
             utils.isIos ? "ios-heart-circle-outline" : "md-heart-circle-outline"
           }

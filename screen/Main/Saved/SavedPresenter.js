@@ -1,16 +1,43 @@
 import React from "react";
 import styled from "styled-components/native";
+import RoomCard from "../../../components/Main/Explore/RoomCard";
 
 const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+  margin-top: 70px;
+  padding: 0px 30px;
 `;
 
-const Text = styled.Text``;
+const Title = styled.Text`
+  font-size: 38px;
+  margin-bottom: 10px;
+`;
 
-export default () => (
+const SView = styled.ScrollView``;
+
+const NoFavs = styled.Text``;
+
+export default ({ rooms }) => (
   <Container>
-    <Text>Saved</Text>
+    <Title>Favourites</Title>
+    <SView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 50 }}
+    >
+      {rooms.length !== 0 ? (
+        rooms.map((room) => (
+          <RoomCard
+            key={room.id}
+            name={room.name}
+            price={room.price}
+            id={room.id}
+            isFav={room.is_fav}
+            photos={room.photos}
+            isSuperhost={room.user.superhost}
+          />
+        ))
+      ) : (
+        <NoFavs>You don't have any favs.</NoFavs>
+      )}
+    </SView>
   </Container>
 );
