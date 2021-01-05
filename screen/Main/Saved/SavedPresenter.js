@@ -4,7 +4,7 @@ import RoomCard from "../../../components/Main/Explore/RoomCard";
 
 const Container = styled.View`
   margin-top: 70px;
-  padding: 0px 30px;
+  padding: 0px 15px;
 `;
 
 const Title = styled.Text`

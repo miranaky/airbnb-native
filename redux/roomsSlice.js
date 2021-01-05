@@ -28,10 +28,33 @@ const roomsSlice = createSlice({
     setFavs(state, action) {
       state.favs = action.payload;
     },
+    setFav(state, action) {
+      /// change favlist with localstorage using redux
+      const {
+        payload: { roomId },
+      } = action;
+      const room = state.explore.rooms.find((room) => room.id === roomId);
+      if (room) {
+        if (room.is_fav) {
+          ///remove room from favlist
+          room.is_fav = false; ///immer's power : got object and change object then redux-toolkit update object background
+          state.favs = state.favs.filter((room) => room.id !== roomId);
+        } else {
+          /// add room at favlist
+          room.is_fav = true;
+          state.favs = [room, ...state.favs];
+        }
+      }
+    },
   },
 });
 
-export const { setExploreRooms, increasePage, setFavs } = roomsSlice.actions;
+export const {
+  setExploreRooms,
+  increasePage,
+  setFavs,
+  setFav,
+} = roomsSlice.actions;
 
 export const getRooms = (page) => async (dispatch, getState) => {
   const {

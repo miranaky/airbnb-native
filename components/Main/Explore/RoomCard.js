@@ -52,7 +52,9 @@ const Name = styled.Text`
 const PhotosContainer = styled.View`
   height: ${height / 4};
   width: 100%;
+  overflow: hidden;
   margin-bottom: 10px;
+  border-radius: 4px;
 `;
 
 const SlideImage = styled.Image`

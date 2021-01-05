@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import api from "../api";
-import { setFavs } from "./roomsSlice";
+import { setFavs, setFav } from "./roomsSlice";
 
 const userSlice = createSlice({
   name: "users",
@@ -55,8 +55,10 @@ export const toggleFav = (roomId) => async (dispatch, getState) => {
     usersReducer: { id, token },
   } = getState();
   try {
+    //sending state at backend
     const { status } = await api.toggleFav(id, roomId, token);
-    console.log(status);
+    //update state at redux
+    dispatch(setFav({ roomId }));
   } catch (e) {
     console.warn(e);
   }
