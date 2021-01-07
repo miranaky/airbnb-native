@@ -1,17 +1,22 @@
 import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
+import { StyleSheet } from "react-native";
 import Explore from "../screen/Main/Explore";
 import Saved from "../screen/Main/Saved";
 import MapScreen from "../screen/Main/Map";
 import Profile from "../screen/Main/Profile";
 import colors from "../colors";
 import utils from "../utils";
+import Room from "../screen/Main/Room";
+import BackBtn from "../components/Auth/BackBtn";
 
-const Main = createBottomTabNavigator();
+const TabsNavigator = createBottomTabNavigator();
 
-export default () => (
-  <Main.Navigator
+const Tabs = () => (
+  <TabsNavigator.Navigator
     tabBarOptions={{
       activeTintColor: colors.red,
       tabStyle: {
@@ -47,9 +52,40 @@ export default () => (
       },
     })}
   >
-    <Main.Screen name="Explore" component={Explore}></Main.Screen>
-    <Main.Screen name="Saved" component={Saved}></Main.Screen>
-    <Main.Screen name="Map" component={MapScreen}></Main.Screen>
-    <Main.Screen name="Profile" component={Profile}></Main.Screen>
+    <TabsNavigator.Screen name="Explore" component={Explore} />
+    <TabsNavigator.Screen name="Saved" component={Saved} />
+    <TabsNavigator.Screen name="Map" component={MapScreen} />
+    <TabsNavigator.Screen name="Profile" component={Profile} />
+  </TabsNavigator.Navigator>
+);
+
+const Main = createStackNavigator();
+
+export default () => (
+  <Main.Navigator
+    screenOptions={{
+      headerBackTitleVisible: false,
+      headerBackImage: () => <BackBtn />,
+    }}
+  >
+    <Main.Screen
+      name="Tabs"
+      component={Tabs}
+      options={{ headerShown: false }}
+    />
+    <Main.Screen
+      name="RoomDetail"
+      component={Room}
+      options={{
+        headerTransparent: true,
+        headerBackground: () => (
+          <BlurView
+            tint="light"
+            intensity={80}
+            style={StyleSheet.absoluteFill}
+          />
+        ),
+      }}
+    />
   </Main.Navigator>
 );
